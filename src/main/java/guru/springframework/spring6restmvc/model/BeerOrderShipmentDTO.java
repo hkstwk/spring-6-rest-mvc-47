@@ -11,7 +11,6 @@ import java.util.UUID;
 public class BeerOrderShipmentDTO {
     private UUID id;
     private Long version;
-    private BeerOrderDTO beerOrderDTO;
     private String trackingNumber;
     private Timestamp createdDate;
     private Timestamp lastModifiedDate;

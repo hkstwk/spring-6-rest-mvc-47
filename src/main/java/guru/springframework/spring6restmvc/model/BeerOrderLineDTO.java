@@ -15,7 +15,6 @@ public class BeerOrderLineDTO {
     private Timestamp createdDate;
     private Timestamp lastModifiedDate;
 
-    private BeerOrderDTO beerOrderDTO;
     private BeerDTO beerDTO;
 
     private Integer orderQuantity;
