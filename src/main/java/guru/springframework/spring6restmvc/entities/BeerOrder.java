@@ -43,7 +43,7 @@ public class BeerOrder {
         this.lastModifiedDate = lastModifiedDate;
         this.customerRef = customerRef;
         this.setCustomer(customer);
-        this.beerOrderLines = beerOrderLines;
+        this.setBeerOrderLines(beerOrderLines);
         this.setBeerOrderShipment(beerOrderShipment);
     }
 
@@ -54,7 +54,7 @@ public class BeerOrder {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
 
     @Version
@@ -77,17 +77,28 @@ public class BeerOrder {
     private Customer customer;
 
     public void setCustomer(Customer customer) {
-        this.customer = customer;
-        customer.getBeerOrders().add(this);
+        if (customer != null) {
+            this.customer = customer;
+            customer.getBeerOrders().add(this);
+        }
     }
 
     public void setBeerOrderShipment(BeerOrderShipment beerOrderShipment) {
-        this.beerOrderShipment = beerOrderShipment;
-        beerOrderShipment.setBeerOrder(this);
+        if (beerOrderShipment != null){
+            this.beerOrderShipment = beerOrderShipment;
+            beerOrderShipment.setBeerOrder(this);
+        }
     }
 
-    @OneToMany(mappedBy = "beerOrder")
+    @OneToMany(mappedBy = "beerOrder", cascade = CascadeType.ALL)
     private Set<BeerOrderLine> beerOrderLines;
+
+    public void setBeerOrderLines(Set<BeerOrderLine> beerOrderLines){
+        if (beerOrderLines != null){
+            this.beerOrderLines = beerOrderLines;
+            beerOrderLines.forEach(beerOrderLine -> beerOrderLine.setBeerOrder(this));
+        }
+    }
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private BeerOrderShipment beerOrderShipment;
