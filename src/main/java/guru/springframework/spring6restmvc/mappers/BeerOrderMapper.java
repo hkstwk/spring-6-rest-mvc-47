@@ -15,7 +15,7 @@ public interface BeerOrderMapper {
     @Mapping(target = "beerOrderLines", source = "beerOrderLineDTOSet")
     @Mapping(target = "beerOrderShipment", source = "beerOrderShipmentDTO")
     @Mapping(target = "customer", source = "customerDTO")
-    BeerOrder beerOrderDtoToBeer(BeerOrderDTO beerOrderDTO);
+    BeerOrder beerOrderDtoToBeerOrder(BeerOrderDTO beerOrderDTO);
 
     @Mapping(target = "beerOrderLineDTOSet", source = "beerOrderLines")
     @Mapping(target = "beerOrderShipmentDTO", source = "beerOrderShipment")

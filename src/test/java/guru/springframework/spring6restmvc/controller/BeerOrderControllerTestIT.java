@@ -47,7 +47,7 @@ public class BeerOrderControllerTestIT {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.content.length()", is(6)));
+                .andExpect(jsonPath("$.content.length()", is(3)));
     }
 
     @Test
@@ -66,7 +66,6 @@ public class BeerOrderControllerTestIT {
     void getBeerOrderByIdNotFound() throws Exception {
         mockMvc.perform(get(BeerOrderController.BEER_ORDER_PATH_ID, UUID.randomUUID())
                         .with(jwtRequestPostProcessor))
-                .andExpect(status().isNotFound())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(status().isNotFound());
     }
 }

@@ -1,6 +1,5 @@
 package guru.springframework.spring6restmvc.services;
 
-import guru.springframework.spring6restmvc.entities.Beer;
 import guru.springframework.spring6restmvc.entities.BeerOrder;
 import guru.springframework.spring6restmvc.mappers.BeerOrderMapper;
 import guru.springframework.spring6restmvc.model.BeerOrderDTO;
@@ -35,8 +34,8 @@ public class BeerOrderServiceJPA implements BeerOrderService {
     }
 
     @Override
-    public Optional<BeerOrder> getBeerOrderById(UUID id) {
-        return Optional.empty();
+    public Optional<BeerOrderDTO> getBeerOrderById(UUID id) {
+        return Optional.ofNullable(beerOrderMapper.beerOrderToBeerOrderDto(beerOrderRepository.findById(id).orElse(null)));
     }
 
     public PageRequest buildPageRequest(Integer pageNumber, Integer pageSize) {
