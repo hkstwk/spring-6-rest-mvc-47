@@ -27,10 +27,7 @@ public class BeerOrderServiceJPA implements BeerOrderService {
     @Override
     public Page<BeerOrderDTO> listBeerOrders(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
-
-        Page<BeerOrder> beerOrderPage =beerOrderRepository.findAll(pageRequest);
-
-        return beerOrderPage.map(beerOrderMapper::beerOrderToBeerOrderDto);
+        return beerOrderRepository.findAll(pageRequest).map(beerOrderMapper::beerOrderToBeerOrderDto);
     }
 
     @Override
