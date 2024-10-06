@@ -83,6 +83,13 @@ public class BeerOrderControllerTestIT {
     }
 
     @Test
+    void deleteBeerOrderNotFound() throws Exception {
+        mockMvc.perform(delete(BeerOrderController.BEER_ORDER_PATH_ID, UUID.randomUUID())
+                        .with(jwtRequestPostProcessor))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     @Transactional
     void updateBeerOrder() throws Exception {
         BeerOrder beerOrder = beerOrderRepository.findAll().getFirst();
